@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux';
+import { addGun, removeGun, addGunAsync } from './index.redux';
 
 class App extends Component {
   render() {
+    // const store = this.props.store;
+    // const num = store.getState();
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <h1>current guns: {this.props.num}</h1>
+        <button onClick={this.props.addGun}>require more guns</button>
+        <button onClick={this.props.removeGun}>hand in guns</button>
+        <button onClick={this.props.addGunAsync}>hand in guns later</button>
       </div>
+      
     );
   }
 }
 
+const mapStatetoProps = (state) => {
+  return {num: state}
+}
+
+const actionCreators = {addGun, removeGun, addGunAsync}
+App = connect(mapStatetoProps, actionCreators)(App)
 export default App;
