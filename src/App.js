@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addGun, removeGun, addGunAsync } from './index.redux';
-
+import { Button } from 'antd-mobile';
+//import 'antd-mobile/dist/antd-mobile.css';
 
 @connect(
-  (state) => ({num: state}), 
+  (state) => ({num: state.counter}), 
   {addGun, removeGun, addGunAsync}
 )
 
 class App extends Component {
   render() {
-    // const store = this.props.store;
-    // const num = store.getState();
     return (
       <div>
         <h1>current guns: {this.props.num}</h1>
-        <button onClick={this.props.addGun}>require more guns</button>
-        <button onClick={this.props.removeGun}>hand in guns</button>
-        <button onClick={this.props.addGunAsync}>hand in guns later</button>
+        <Button type='primary' onClick={this.props.addGun}>require more guns</Button>
+        <Button type='primary' onClick={this.props.removeGun}>hand in guns</Button>
+        <Button type='primary' onClick={this.props.addGunAsync}>hand in guns later</Button>
       </div>
       
     );
