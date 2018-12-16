@@ -7,13 +7,14 @@ import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import Auth from './Auth';
 import Dashbard from './Dashboard';
 import reducer from './reducer';
+import './config';
 
 const store = createStore(reducer, compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
 
-console.log(store.getState());
+//console.log(store.getState());
 
 ReactDOM.render(
     (<Provider store={store}>

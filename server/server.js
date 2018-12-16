@@ -12,17 +12,17 @@ const User = mongoose.model('user', new mongoose.Schema({
     age: {type: Number, required: true}
 }));
 
-User.create({
-    user: 'xiaohuang',
-    age:10
-}, function(err, doc) {
-    if (!err) {
-        console.log(doc);
-    }
-    else {
-        console.log(err);
-    }
-});
+// User.create({
+//     user: 'xiaohuang',
+//     age:10
+// }, function(err, doc) {
+//     if (!err) {
+//         console.log(doc);
+//     }
+//     else {
+//         console.log(err);
+//     }
+// });
 
 
 
