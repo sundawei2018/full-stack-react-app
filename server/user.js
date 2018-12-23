@@ -1,6 +1,7 @@
 const express = require('express');
-const Router = express.Router();
+const utils = require('utility');
 
+const Router = express.Router();
 const model = require('./model');
 const User = model.getModel('user');
 
@@ -17,7 +18,7 @@ Router.post('/register', function(req, res) {
         if (doc) {
             return res.json({code:1, msg:'user already exists'});
         }
-        User.create({user, pwd, type}, function(err, doc) {
+        User.create({user, pwd: md5pwd(pwd), type}, function(err, doc) {
             if (err) {
                 return res.json({code:1, msg: 'something wrong'});
             }
@@ -30,5 +31,10 @@ Router.get('/info', function(req, res) {
     // check cookie
     return res.json({code : 1});
 });
+
+function md5pwd(pwd) {
+    const salt = 'dawei_sun_salt';
+    return utils.md5(utils.md5(pwd + salt));
+}
 
 module.exports = Router;
