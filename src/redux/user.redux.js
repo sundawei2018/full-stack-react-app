@@ -41,6 +41,10 @@ function errorMsg(msg) {
     return {msg, type: ERROR_MSG}
 }
 
+export function loadData(userinfo) {
+    return { type: LOAD_DATA, payload: userinfo}
+}
+
 export function login({user, pwd}) {
     if (!user || !pwd) {
         return errorMsg('user must enter username or password')
