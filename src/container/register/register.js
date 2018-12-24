@@ -65,7 +65,7 @@ class Register extends Component {
 						employer
 					</RadioItem>
 					<WhiteSpace />
-					<Button type='primary' onClick={this.handleRegister}>注册 </Button>
+					<Button type='primary' onClick={this.handleRegister}>Sign Up</Button>
 				</List>
 			</div>
 		)

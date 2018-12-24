@@ -18,6 +18,10 @@ export function user(state = initState, action) {
     switch(action.type) {
         case REGISTER_SUCCESS:
             return {...state, msg:'', redirectTo: getRedirectPath(action.payload),isAuth: true, ...action.payload}
+        case LOGIN_SUCESS:
+			return {...state, msg:'',redirectTo: getRedirectPath(action.payload),isAuth:true,...action.payload}
+		case LOAD_DATA:
+			return {...state, ...action.payload}
         case ERROR_MSG:
             return {...state, isAuth: false, msg:action.msg}
         default:
@@ -29,8 +33,31 @@ function registerSuccess(data) {
     return { type: REGISTER_SUCCESS, payload: data }
 }
 
+function loginSuccess(data) {
+    return { type: LOGIN_SUCESS, payload: data}
+}
+
 function errorMsg(msg) {
     return {msg, type: ERROR_MSG}
+}
+
+export function login({user, pwd}) {
+    if (!user || !pwd) {
+        return errorMsg('user must enter username or password')
+    }
+    return dispatch => {
+        axios.post('/user/login', {user, pwd})
+        .then(res => {
+            if (res.status == 200 && res.data.code === 0) {
+                //console.log(res.data.data);
+                console.log("success");
+                dispatch(loginSuccess(res.data.data));
+            }
+            else {
+                dispatch(errorMsg(res.data.msg));
+            }
+        });
+    }
 }
 
 export function register({user, pwd, repeatpwd, type}) {
@@ -49,7 +76,6 @@ export function register({user, pwd, repeatpwd, type}) {
             else {
                 dispatch(errorMsg(res.data.msg));
             }
-        })
+        });
     }
-    
 }
