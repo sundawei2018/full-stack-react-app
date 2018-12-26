@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import { NavBar, InputItem, TextareaItem, Button } from 'antd-mobile';
 import AvatarSelector from '../../component/avatar-selector/avatar-selector';
+import { connect } from 'react-redux';
+import { update } from '../../redux/user.redux';
+import {Redirect} from 'react-router-dom';
 
+@connect(
+    state=> state.user,
+    {update}
+)
 class EmployerInfo extends Component {
     constructor(props) {
         super(props);
@@ -20,8 +27,11 @@ class EmployerInfo extends Component {
     }
 
     render() {
+        const path = this.props.location.pathname;
+        const redirect = this.props.redirectTo;
         return (
             <div>
+                {redirect !== path ? <Redirect to={this.props.redirectTo}></Redirect>:null}
                 <NavBar mode="dark">Employer Infomation Page</NavBar>
                 <AvatarSelector
                     selectAvatar={(imgname) => {
@@ -45,7 +55,12 @@ class EmployerInfo extends Component {
                     autoHeight
                     title='Description'>
                 </TextareaItem>
-                <Button type='primary'>Save</Button>
+                <Button 
+                    onClick={()=>{
+                        this.props.update(this.state);
+                    }}
+                    type='primary'
+                >Save</Button>
             </div>
         );
     }
